@@ -1,6 +1,6 @@
 # GameStore
 
-**Loja de games - Disciplina de P3**
+**Loja de Games - Disciplina de P3**
 
 Código desenvolvido como projeto da disciplina de **P3**
 
