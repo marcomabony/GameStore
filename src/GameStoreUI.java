@@ -1,4 +1,4 @@
-import java.util.Scanner;
+ import java.util.Scanner;
 
 public class GameStoreUI {
     private static Scanner scanner = new Scanner(System.in);
@@ -14,7 +14,7 @@ public class GameStoreUI {
 
             switch (opcao) {
                 case 1:
-                    // Exibir lista de jogos
+                    // Exibir lista de jogos cadastrados no banco
                     // ...
                     break;
                 case 2:
