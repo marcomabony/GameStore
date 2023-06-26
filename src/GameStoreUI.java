@@ -14,9 +14,9 @@ public class GameStoreUI {
 
             switch (opcao) {
                 case 1:
-                    // Exibir lista de jogos cadastrados no banco
-                    // ...
+                    ListaGames.exibirListaDeJogos();
                     break;
+
                 case 2:
                     // Adicionar jogo ao carrinho
                     // ...

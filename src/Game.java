@@ -9,6 +9,22 @@ public class Game {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
+    private int idGame;
+    private String nomeGame;
+    private String generoGame;
+    private int precoGame;
+
+    public Game(int idGame, String nomeGame, String generoGame, int precoGame) {
+        this.idGame = idGame;
+        this.nomeGame = nomeGame;
+        this.generoGame = generoGame;
+        this.precoGame = precoGame;
+    }
+    @Override
+    public String toString() {
+        return "ID: " + idGame + ", Nome: " + nomeGame + ", Gênero: " + generoGame + ", Preço: " + precoGame;
+    }
+
     public static void inserirDados() {
         try {
             Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
