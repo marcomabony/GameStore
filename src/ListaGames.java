@@ -30,4 +30,31 @@ public class ListaGames {
             System.out.println("Erro ao obter conexão: " + e.getMessage());
         }
     }
+
+    public static Game buscarJogoPorID(int idGame) {
+        try {
+            Connection connection = ConexaoMariaDB.obterConexao();
+            String sql = "SELECT * FROM Games WHERE id_game = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, idGame);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        String nomeGame = resultSet.getString("nome_game");
+                        String generoGame = resultSet.getString("genero_game");
+                        int precoGame = resultSet.getInt("preco_game");
+
+                        return new Game(idGame, nomeGame, generoGame, precoGame);
+                    }
+                }
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Erro ao obter conexão: " + e.getMessage());
+        }
+
+        return null;
+    }
 }

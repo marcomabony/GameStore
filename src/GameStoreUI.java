@@ -1,4 +1,4 @@
- import java.util.Scanner;
+import java.util.Scanner;
 
 public class GameStoreUI {
     private static Scanner scanner = new Scanner(System.in);
@@ -7,7 +7,14 @@ public class GameStoreUI {
 
         System.out.println("Bem-vindo à GameStore!");
 
+        Login.fazerLogin();
+
         boolean sair = false;
+        Comprar compra = new Comprar();
+        AdicionarAoCarrinho adicionar = new AdicionarAoCarrinho(compra);
+        VisualizarCarrinho visualizar = new VisualizarCarrinho(compra);
+        FinalizarCompra finalizar = new FinalizarCompra(compra);
+
         while (!sair) {
             exibirMenuPrincipal();
             int opcao = lerOpcao();
@@ -16,28 +23,35 @@ public class GameStoreUI {
                 case 1:
                     ListaGames.exibirListaDeJogos();
                     break;
-
                 case 2:
-                    // Adicionar jogo ao carrinho
-                    // ...
+                    if (Login.isFuncionario()) {
+                        Game.inserirDados();
+                        System.out.println("Jogo cadastrado com sucesso!!!");
+                    } else {
+                        adicionarJogoAoCarrinho(adicionar);
+                    }
                     break;
                 case 3:
-                    // Visualizar carrinho de compras
-                    // ...
+                    if (Login.isFuncionario()) {
+                        // Opção indisponível para funcionários
+                        System.out.println("Opção indisponível para funcionários.");
+                    } else {
+                        visualizarCarrinho(visualizar);
+                    }
                     break;
                 case 4:
-                    // Finalizar compra
-                    // ...
+                    if (Login.isFuncionario()) {
+                        // Opção indisponível para funcionários
+                        System.out.println("Opção indisponível para funcionários.");
+                    } else {
+                        finalizar.finalizarCompra();
+                    }
                     break;
+
                 case 5:
-                    // Inserir jogos na tabela Game
-                    Game.inserirDados();
-                    System.out.println("Jogo cadastrado com sucesso!!!");
-                    break;
-                case 6:
-                    // Sair da loja
                     sair = true;
                     break;
+
                 default:
                     System.out.println("Opção inválida. Por favor, tente novamente.");
             }
@@ -47,17 +61,38 @@ public class GameStoreUI {
     }
 
     private static void exibirMenuPrincipal() {
-        System.out.println("\nOpções:");
-        System.out.println("1. Exibir lista de jogos");
-        System.out.println("2. Adicionar jogo ao carrinho");
-        System.out.println("3. Visualizar carrinho de compras");
-        System.out.println("4. Finalizar compra");
-        System.out.println("5. Inserir dados na tabela Game");
-        System.out.println("6. Sair");
+        if (Login.isFuncionario()) {
+            System.out.println("\nOpções (Funcionário):");
+            System.out.println("1. Exibir lista de jogos no Estoque");
+            System.out.println("2. Inserir Jogos no Estoque");
+            System.out.println("3. Verificar Status da Compra");
+            System.out.println("4. ");
+            System.out.println("5. Sair");
+        } else {
+            System.out.println("\nOpções (Cliente):");
+            System.out.println("1. Exibir lista de jogos no Estoque");
+            System.out.println("2. Comprar Jogos na Game Store Unity Interactive");
+            System.out.println("3. Verificar Carrinho");
+            System.out.println("4. Finalizar Compra");
+            System.out.println("5. Sair");
+        }
     }
 
     private static int lerOpcao() {
         System.out.print("Escolha uma opção: ");
         return scanner.nextInt();
+    }
+
+    private static void adicionarJogoAoCarrinho(AdicionarAoCarrinho adicionar) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o ID do jogo que deseja adicionar ao carrinho: ");
+        int idGame = scanner.nextInt();
+
+        adicionar.executar(idGame);
+    }
+
+    private static void visualizarCarrinho(VisualizarCarrinho visualizar) {
+        visualizar.executar();
     }
 }
